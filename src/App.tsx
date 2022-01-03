@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     newMember && setMembers([...members, newMember])
-  })
+  }, [newMember])
 
   function fetchUser() {
     fetch('http://localhost:8081/auth', {
