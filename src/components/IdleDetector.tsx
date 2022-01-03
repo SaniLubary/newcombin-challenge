@@ -20,7 +20,6 @@ const IdleStateDetector = ({ delay, onIdle, onActive }: { delay: any, onIdle: an
     document.addEventListener("touchmove", resetTimer, false);
     document.addEventListener("MSPointerMove", resetTimer, false);
     
-    //start the timer
     startTimer();
   };
 
@@ -33,17 +32,14 @@ const IdleStateDetector = ({ delay, onIdle, onActive }: { delay: any, onIdle: an
     document.removeEventListener("touchmove", resetTimer);
     document.removeEventListener("MSPointerMove", resetTimer);
 
-    // memory leak
     clearTimeout(timeoutId.current);
   };
 
   const startTimer = () => {
-    // wait till delay time before calling goInactive
     timeoutId.current = setTimeout(goInactive, delay);
   };
 
   const resetTimer = () => {
-    // reset the counter and make user go active
     clearTimeout(timeoutId.current);
     goActive();
   };
@@ -51,12 +47,10 @@ const IdleStateDetector = ({ delay, onIdle, onActive }: { delay: any, onIdle: an
   const goInactive = () => {
     onIdle && onIdle();
 
-    //optional if you want to start the idle detector again
     resetTimer();
   };
 
   const goActive = () => {
-    // do something
     onActive && onActive();
     startTimer();
   };
